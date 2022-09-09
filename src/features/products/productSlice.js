@@ -44,7 +44,7 @@ const productSlice = createSlice({
       return { ...state, productDetail: payload };
     },
     [fetchAsyncProducts.rejected]: () => {
-      <div>Error</div>;
+      <div>Error 1</div>;
     },
   },
 });
