@@ -1,0 +1,19 @@
+@import "../../common/color.scss";
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 0px;
+  color: $font-primary;
+  font-weight: 400;
+  .img {
+    width: 30%;
+  }
+  .container_information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+    max-width: 700px;
+  }
+}

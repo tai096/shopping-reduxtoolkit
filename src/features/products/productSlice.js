@@ -32,6 +32,9 @@ const productSlice = createSlice({
     listProducts: (state, { payload }) => {
       state.products = payload;
     },
+    removeDataProductDetail: (state) => {
+      state.productDetail = {};
+    },
   },
   extraReducers: {
     [fetchAsyncProducts.pending]: () => {
@@ -44,10 +47,12 @@ const productSlice = createSlice({
       return { ...state, productDetail: payload };
     },
     [fetchAsyncProducts.rejected]: () => {
-      <div>Error 1</div>;
+      <div>Error 404</div>;
     },
   },
 });
 
-export const { listProducts } = productSlice.actions;
+export const { listProducts, removeDataProductDetail } = productSlice.actions;
+export const getDetailProduct = (state) => state.listProducts.productDetail;
+export const getListProducts = (state) => state.listProducts.products;
 export default productSlice.reducer;
