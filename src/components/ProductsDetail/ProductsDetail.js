@@ -33,6 +33,7 @@ export default function ProductsDetail() {
             <h3>Rate: {data.rating.rate}</h3>
             <h2>Category: {data.category}</h2>
             <p>Description: {data.description}</p>
+            <button>Add to cart</button>
           </div>
         </div>
       )}

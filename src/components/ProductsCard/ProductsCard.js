@@ -19,6 +19,7 @@ export default function ProductsCard(props) {
           </div>
         </div>
       </Link>
+      <button>Add to cart</button>
     </div>
   );
 }

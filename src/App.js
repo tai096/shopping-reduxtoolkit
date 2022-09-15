@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Error from "./components/Error/Error";
 import ProductsDetail from "./components/ProductsDetail/ProductsDetail";
+import Cart from "./components/Cart";
 import "./App.scss";
 
 function App() {
@@ -14,8 +15,9 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/product/:productId" element={<ProductsDetail />} />
-            <Route component={Error} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </div>
         <Footer />
