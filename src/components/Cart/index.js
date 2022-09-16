@@ -1,13 +1,34 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  addToCart,
+  clearCart,
+  decreaseCartItem,
+  removeCartItem,
+} from "../../features/cartSlice";
+import "./Cart.scss";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
-  console.log(cart.cartItems);
+  const dispatch = useDispatch();
+
+  const handleRemove = (cartItem) => {
+    dispatch(removeCartItem(cartItem));
+  };
+  const handleIncrease = (cartItem) => {
+    dispatch(addToCart(cartItem));
+  };
+  const handleDecrease = (cartItem) => {
+    dispatch(decreaseCartItem(cartItem));
+  };
+  const handleClearCart = (cartItem) => {
+    dispatch(clearCart(cartItem));
+  };
+
   return (
     <div className="cart-container">
-      <h2>Shopping Cart</h2>
+      <h1>Shopping Cart</h1>
       {cart.cartItems.length === 0 ? (
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
@@ -18,35 +39,74 @@ export default function Cart() {
           </div>
         </div>
       ) : (
-        <div>
-          <div className="titles">
-            <h3 className="product-title">Product</h3>
-            <h3 className="price">Price</h3>
-            <h3 className="Quantity">Quantity</h3>
-            <h3 className="total">Total</h3>
+        <div className="shopping-cart">
+          <div className="column-labels">
+            <label className="product-image">Image</label>
+            <label className="product-details">Product</label>
+            <label className="product-price">Price</label>
+            <label className="product-quantity">Quantity</label>
+            <label className="product-removal">Remove</label>
+            <label className="product-line-price">Total</label>
           </div>
-          <div className="cart-item">
-            {cart.cartItems?.map((cartItem) => (
-              <div className="cart-item" key={cartItem.id}>
-                <div className="cart-product">
-                  <img src={cartItem.image} alt={cartItem.title} />
-                  <div>
-                    <h3>{cartItem.title}</h3>
-                    <button>Remove</button>
-                  </div>
-                  <div className="cart-product-price">{cartItem.price}$</div>
-                  <div className="cart-product-quantity">
-                    <button>-</button>
-                    <div className="count">{cartItem.productQuantity}</div>
-                    <button>+</button>
-                  </div>
-                  <div className="cart-product-total-price">
-                    {cartItem.price * cartItem.productQuantity}$
-                  </div>
+          {cart.cartItems?.map((cartItem) => (
+            <div key={cartItem.id}>
+              <div className="product">
+                <div className="product-image">
+                  <Link to={`/product/${cartItem.id}`}>
+                    <img src={cartItem.image} alt={cartItem.title} />
+                  </Link>
+                </div>
+                <div className="product-details">
+                  <div className="product-title">{cartItem.title}</div>
+                </div>
+                <div className="product-price">{cartItem.price}</div>
+                <div className="product-quantity">
+                  <button onClick={() => handleDecrease(cartItem)}>-</button>
+                  <span>{cartItem.productQuantity}</span>
+                  <button onClick={() => handleIncrease(cartItem)}>+</button>
+                </div>
+                <div className="product-removal">
+                  <button
+                    onClick={() => handleRemove(cartItem)}
+                    className="remove-product"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="product-line-price">
+                  {Number(cartItem.productQuantity * cartItem.price).toFixed(3)}
                 </div>
               </div>
-            ))}
+              <button onClick={() => handleClearCart(cartItem)}>Clear</button>
+            </div>
+          ))}
+          <div className="totals">
+            <div className="totals-item">
+              <label>Subtotal</label>
+              <div className="totals-value" id="cart-subtotal">
+                71.97
+              </div>
+            </div>
+            <div className="totals-item">
+              <label>Tax (5%)</label>
+              <div className="totals-value" id="cart-tax">
+                3.60
+              </div>
+            </div>
+            <div className="totals-item">
+              <label>Shipping</label>
+              <div className="totals-value" id="cart-shipping">
+                15.00
+              </div>
+            </div>
+            <div className="totals-item totals-item-total">
+              <label>Grand Total</label>
+              <div className="totals-value" id="cart-total">
+                90.57
+              </div>
+            </div>
           </div>
+          <button className="checkout">Checkout</button>
         </div>
       )}
     </div>

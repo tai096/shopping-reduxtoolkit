@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addToCart } from "../../features/cartSlice";
 import {
   fetchAsyncProductDetail,
   getDetailProduct,
@@ -12,7 +13,11 @@ export default function ProductsDetail() {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const data = useSelector(getDetailProduct);
-  console.log(data);
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+
   useEffect(() => {
     dispatch(fetchAsyncProductDetail(productId));
     return () => {
@@ -33,7 +38,7 @@ export default function ProductsDetail() {
             <h3>Rate: {data.rating.rate}</h3>
             <h2>Category: {data.category}</h2>
             <p>Description: {data.description}</p>
-            <button>Add to cart</button>
+            <button onClick={() => handleAddToCart(data)}>Add to cart</button>
           </div>
         </div>
       )}
