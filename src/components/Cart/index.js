@@ -22,9 +22,14 @@ export default function Cart() {
   const handleDecrease = (cartItem) => {
     dispatch(decreaseCartItem(cartItem));
   };
-  const handleClearCart = (cartItem) => {
-    dispatch(clearCart(cartItem));
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
+
+  let totalCart = 0;
+  cart.cartItems?.map(
+    (cartItem) => (totalCart += cartItem.price * cartItem.productQuantity)
+  );
 
   return (
     <div className="cart-container">
@@ -77,32 +82,14 @@ export default function Cart() {
                   {Number(cartItem.productQuantity * cartItem.price).toFixed(3)}
                 </div>
               </div>
-              <button onClick={() => handleClearCart(cartItem)}>Clear</button>
             </div>
           ))}
+          <button onClick={() => handleClearCart()}>Clear</button>
           <div className="totals">
             <div className="totals-item">
               <label>Subtotal</label>
               <div className="totals-value" id="cart-subtotal">
-                71.97
-              </div>
-            </div>
-            <div className="totals-item">
-              <label>Tax (5%)</label>
-              <div className="totals-value" id="cart-tax">
-                3.60
-              </div>
-            </div>
-            <div className="totals-item">
-              <label>Shipping</label>
-              <div className="totals-value" id="cart-shipping">
-                15.00
-              </div>
-            </div>
-            <div className="totals-item totals-item-total">
-              <label>Grand Total</label>
-              <div className="totals-value" id="cart-total">
-                90.57
+                {Number(totalCart).toFixed(3)}
               </div>
             </div>
           </div>
