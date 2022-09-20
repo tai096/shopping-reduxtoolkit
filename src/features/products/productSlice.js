@@ -21,6 +21,22 @@ export const fetchAsyncProductDetail = createAsyncThunk(
   }
 );
 
+export const productsCreate = createAsyncThunk(
+  "products/productsCreate",
+  async (data) => {
+    try {
+      const response = await axios.post(
+        `https://fakestoreapi.com/products`,
+        data
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const initialState = {
   products: [],
   productDetail: {},
@@ -48,6 +64,9 @@ const productSlice = createSlice({
     },
     [fetchAsyncProducts.rejected]: () => {
       <div>Error 404</div>;
+    },
+    [productsCreate.fulfilled]: (state, action) => {
+      state.products.push(action.payload);
     },
   },
 });

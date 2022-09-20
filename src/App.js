@@ -6,6 +6,7 @@ import Error from "./components/Error/Error";
 import ProductsDetail from "./components/ProductsDetail/ProductsDetail";
 import Cart from "./components/Cart";
 import "./App.scss";
+import CreateProduct from "./components/CreateProducts/CreateProducts";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/create" element={<CreateProduct />} />
             <Route path="/product/:productId" element={<ProductsDetail />} />
             <Route path="*" element={<Error />} />
           </Routes>

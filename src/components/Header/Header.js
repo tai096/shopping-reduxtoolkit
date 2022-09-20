@@ -16,6 +16,9 @@ const Header = () => {
       <Link to="/">
         <div className="logo">Shopping App</div>
       </Link>
+      <Link to="/create">
+        <div className="logo">create</div>
+      </Link>
       <Link to="/cart">
         <div className="nav-bag">
           <svg
